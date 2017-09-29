@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/logoHead"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/loginButtonText"
+        android:scaleType="fitCenter"
+        android:src="@drawable/github" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:maxWidth="350dp"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/aclonica"
+        android:lineSpacingExtra="5sp"
+        android:text="@string/loginButtonText"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="25sp"
+        android:typeface="sans" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:contentDescription="@string/githubInc"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/gitlogo"
+        android:typeface="serif" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="@string/githubInc"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="12sp"
+        tools:fontFamily="@font/aclonica" />
+</LinearLayout>
