@@ -4,8 +4,13 @@ GitHub API consumption using
 - MVVM
 - LiveData
 - MVP
+- MVC
+- Offline usage
 - Downlodable fonts
 - Design support library
 - Circular images
 - Blur builder dialog
+- Configuration change
+- Minimized bugs
+- SQlite
 - From Jellybean to Oreo supported
