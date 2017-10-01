@@ -1,5 +1,6 @@
 package com.cognitiveclouds.balvier.githubsample.restclients;
 
+import com.cognitiveclouds.balvier.githubsample.Utils;
 import com.cognitiveclouds.balvier.githubsample.modals.AccessToken;
 import com.cognitiveclouds.balvier.githubsample.modals.GitHubConstants;
 
@@ -18,9 +19,11 @@ public class GitHubAuthenticator implements Callback<AccessToken> {
 
     public void authenticateClient(GitAuthenticatorResponse gitAuthenticatorResponse, String code) {
         this.gitAuthenticatorResponse = gitAuthenticatorResponse;
-        GitHubClient.getGitHubAPIAuthenticatorClient()
-                .getAccessToken(GitHubConstants.getClientId(), GitHubConstants.getClientSecret(), code)
-                .enqueue(this);
+        if (Utils.isNetworkAvailable()) {
+            GitHubClient.getGitHubAPIAuthenticatorClient()
+                    .getAccessToken(GitHubConstants.getClientId(), GitHubConstants.getClientSecret(), code)
+                    .enqueue(this);
+        }
     }
 
     @Override

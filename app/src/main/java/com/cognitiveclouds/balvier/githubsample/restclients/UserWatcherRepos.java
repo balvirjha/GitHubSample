@@ -1,5 +1,8 @@
 package com.cognitiveclouds.balvier.githubsample.restclients;
 
+import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
+import com.cognitiveclouds.balvier.githubsample.Utils;
+import com.cognitiveclouds.balvier.githubsample.databaseoperations.UpdateDataTables;
 import com.cognitiveclouds.balvier.githubsample.modals.watcherreposmodals.UserReposWatching;
 
 import java.io.IOException;
@@ -19,7 +22,7 @@ public class UserWatcherRepos implements Callback<List<UserReposWatching>> {
 
     public void fetchUserWatchingReposProfile(UserWatcherReposSuccessResponse userWatcherReposSuccessResponse, String access_token, Cache cache) {
         this.userWatcherReposSuccessResponse = userWatcherReposSuccessResponse;
-        if (access_token != null) {
+        if (access_token != null && Utils.isNetworkAvailable()) {
             GitHubClient.getGitHubAPI(cache).getWatchingRepos(access_token).enqueue(this);
         }
     }
@@ -28,6 +31,7 @@ public class UserWatcherRepos implements Callback<List<UserReposWatching>> {
     public void onResponse(Call<List<UserReposWatching>> call, Response<List<UserReposWatching>> response) {
         if (response.isSuccessful() && response.code() == 200) {
             if (userWatcherReposSuccessResponse != null) {
+                UpdateDataTables.getInstance(ApplicationClass.getApplicationConotext()).insertWholeWatchingRepoTable(response.body());
                 userWatcherReposSuccessResponse.userWatcherReposSuccessResponse(response.body());
             }
         } else {

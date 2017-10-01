@@ -1,4 +1,4 @@
-package com.cognitiveclouds.balvier.githubsample.ui.view;
+package com.cognitiveclouds.balvier.githubsample.ui.view.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

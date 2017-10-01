@@ -24,7 +24,6 @@ public class UserWatcherReposViewModel extends ViewModel {
         userWatcherReposrepository = new UserWatcherReposrepository();
     }
 
-
     public void init(String access_token, Cache cache) {
         listLiveData = userWatcherReposrepository.getUserReposList(access_token, cache);
     }

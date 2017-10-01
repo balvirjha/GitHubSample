@@ -37,7 +37,6 @@
             android:layout_alignParentTop="true"
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/aclonica"
-            android:text="Sample Text"
             android:textColor="@color/colorDesc"
             android:textSize="16dp"
             android:textStyle="bold"
@@ -49,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
             android:autoSizeTextType="uniform"
-            android:text="sample"
+            android:lines="1"
+            android:ellipsize="end"
             android:textColor="@color/colorTeral" />
 
         <TextView
@@ -58,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:autoSizeTextType="uniform"
-            android:text="sampe"
+            android:lines="1"
+            android:ellipsize="end"
             android:textColor="@color/colorTeral" />
     </LinearLayout>
 </LinearLayout>

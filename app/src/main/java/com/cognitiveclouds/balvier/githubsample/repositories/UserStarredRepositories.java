@@ -3,6 +3,9 @@ package com.cognitiveclouds.balvier.githubsample.repositories;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
+import com.cognitiveclouds.balvier.githubsample.Utils;
+import com.cognitiveclouds.balvier.githubsample.databaseoperations.UpdateDataTables;
 import com.cognitiveclouds.balvier.githubsample.modals.starredreposmodals.UserStarredRepo;
 import com.cognitiveclouds.balvier.githubsample.restclients.UserStarrededRepos;
 
@@ -19,8 +22,12 @@ public class UserStarredRepositories implements UserStarrededRepos.UserStarrdedR
     final MutableLiveData<List<UserStarredRepo>> data = new MutableLiveData<>();
 
     public LiveData<List<UserStarredRepo>> getStarredReposList(String access_token, Cache cache) {
-        new UserStarrededRepos().fetchUserStarredReposProfile(this, access_token,
-                cache);
+        if (Utils.isNetworkAvailable()) {
+            new UserStarrededRepos().fetchUserStarredReposProfile(this, access_token,
+                    cache);
+        } else {
+            data.setValue(UpdateDataTables.getInstance(ApplicationClass.getApplicationConotext()).getWholeStarringRepoTable());
+        }
         return data;
     }
 

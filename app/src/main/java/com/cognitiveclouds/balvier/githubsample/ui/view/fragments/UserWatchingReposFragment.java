@@ -1,4 +1,4 @@
-package com.cognitiveclouds.balvier.githubsample.ui.view;
+package com.cognitiveclouds.balvier.githubsample.ui.view.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 
 import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
 import com.cognitiveclouds.balvier.githubsample.R;
+import com.cognitiveclouds.balvier.githubsample.databaseoperations.UpdateDataTables;
 import com.cognitiveclouds.balvier.githubsample.modals.GitHubConstants;
 import com.cognitiveclouds.balvier.githubsample.modals.watcherreposmodals.UserReposWatching;
+import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.WatchingReposAdapter;
 import com.cognitiveclouds.balvier.githubsample.viewmodals.UserWatcherReposViewModel;
 
 import java.io.File;
@@ -69,7 +71,17 @@ public class UserWatchingReposFragment extends Fragment implements Observer<List
         }
         Log.e(GitHubConstants.TAG, "fetching user repos success" + userReposWatchings.size());
         userReposWatchingArrayList.addAll(userReposWatchings);
-        mAdapter.setFragmentPerspective(true);
         mAdapter.notifyDataSetChanged();
+        if (userReposWatchingArrayList.size() == 0) {
+            mRoot.findViewById(R.id.errorView).setVisibility(View.VISIBLE);
+
+        } else {
+            if (mRoot.findViewById(R.id.errorView) != null && mRoot.findViewById(R.id.errorView).getVisibility() == View.VISIBLE) {
+                mRoot.findViewById(R.id.errorView).setVisibility(View.GONE);
+
+            }
+
+        }
     }
+
 }

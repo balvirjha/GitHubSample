@@ -2,15 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_watcher"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/ic_visibility_white_18dp"
         android:title="Watcher" />
     <item
         android:id="@+id/menu_starred"
-        android:icon="@android:drawable/ic_menu_compass"
+        android:icon="@drawable/ic_star_rate_white_18dp"
         android:title="Starred" />
 
     <item
         android:id="@+id/menu_aisehi"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_search_white_18dp"
         android:title="Search" />
+
+    <item
+        android:id="@+id/menu_fork"
+        android:icon="@drawable/ic_track_changes_white_18dp"
+        android:title="Fork" />
 </menu>

@@ -1,4 +1,4 @@
-package com.cognitiveclouds.balvier.githubsample.ui.view;
+package com.cognitiveclouds.balvier.githubsample.ui.view.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -15,8 +15,11 @@ import android.view.ViewGroup;
 
 import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
 import com.cognitiveclouds.balvier.githubsample.R;
+import com.cognitiveclouds.balvier.githubsample.databaseoperations.UpdateDataTables;
 import com.cognitiveclouds.balvier.githubsample.modals.GitHubConstants;
 import com.cognitiveclouds.balvier.githubsample.modals.starredreposmodals.UserStarredRepo;
+import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.StarredReposAdapter;
+import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.WatchingReposAdapter;
 import com.cognitiveclouds.balvier.githubsample.viewmodals.UserStarredReposViewModel;
 
 import java.io.File;
@@ -36,7 +39,7 @@ public class UserStarredReposFragment extends Fragment implements Observer<List<
     private UserStarredReposViewModel viewModel;
     private List<UserStarredRepo> userStarredRepoArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private WatchingReposAdapter mAdapter;
+    private StarredReposAdapter mAdapter;
     private View mRoot;
 
 
@@ -48,7 +51,7 @@ public class UserStarredReposFragment extends Fragment implements Observer<List<
                 new Cache(new File(getActivity().getCacheDir(), "responses"), 10 * 1024 * 1024));
         recyclerView = (RecyclerView) mRoot.findViewById(R.id.recycler_view);
 
-        mAdapter = new WatchingReposAdapter(userStarredRepoArrayList);
+        mAdapter = new StarredReposAdapter(userStarredRepoArrayList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ApplicationClass.getApplicationConotext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -71,7 +74,14 @@ public class UserStarredReposFragment extends Fragment implements Observer<List<
         }
         Log.e(GitHubConstants.TAG, "fetching user starred repos success" + userStarredRepoArrayList.size());
         userStarredRepoArrayList.addAll(userStarredRepoList);
-        mAdapter.setFragmentPerspective(false);
         mAdapter.notifyDataSetChanged();
+        if (userStarredRepoArrayList.size() == 0 && mRoot.findViewById(R.id.errorView) != null) {
+            mRoot.findViewById(R.id.errorView).setVisibility(View.VISIBLE);
+        } else {
+            //UpdateDataTables.getInstance(getActivity()).insertWholeStarringRepoTable(userStarredRepoArrayList);
+            if (mRoot.findViewById(R.id.errorView) != null && mRoot.findViewById(R.id.errorView).getVisibility() == View.VISIBLE) {
+                mRoot.findViewById(R.id.errorView).setVisibility(View.GONE);
+            }
+        }
     }
 }

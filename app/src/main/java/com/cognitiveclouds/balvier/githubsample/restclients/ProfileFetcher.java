@@ -1,5 +1,6 @@
 package com.cognitiveclouds.balvier.githubsample.restclients;
 
+import com.cognitiveclouds.balvier.githubsample.Utils;
 import com.cognitiveclouds.balvier.githubsample.modals.UserProfile;
 
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class ProfileFetcher implements Callback<UserProfile> {
 
     public void fetchUserProfile(UserProfileSuccessResponse gitAuthenticatorResponse, String access_token, Cache cache) {
         this.userProfileSuccessResponse = gitAuthenticatorResponse;
-        if (access_token != null) {
+        if (access_token != null && Utils.isNetworkAvailable()) {
             GitHubClient.getGitHubAPI(cache).getUserProfile(access_token).enqueue(this);
         }
     }
