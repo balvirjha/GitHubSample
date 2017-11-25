@@ -1,5 +1,7 @@
 package com.cognitiveclouds.balvier.githubsample.restclients;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -16,6 +18,7 @@ public class GitHubClient {
     public static synchronized GitHubAPI getGitHubAPIAuthenticatorClient() {
         if (gitHubAuthenticatorAPI == null) {
             return new Retrofit.Builder().baseUrl("https://github.com/")
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create()).build().create(GitHubAPI.class);
         } else {
             return gitHubAuthenticatorAPI;
@@ -28,6 +31,7 @@ public class GitHubClient {
                     .cache(cache)
                     .build();
             return new Retrofit.Builder().client(okHttpClient).baseUrl("https://api.github.com/")
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create()).build().create(GitHubAPI.class);
         } else {
             return gitHubAPI;

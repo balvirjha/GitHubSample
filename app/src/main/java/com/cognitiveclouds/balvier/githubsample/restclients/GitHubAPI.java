@@ -7,6 +7,7 @@ import com.cognitiveclouds.balvier.githubsample.modals.watcherreposmodals.UserRe
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -36,9 +37,9 @@ public interface GitHubAPI {
 
     @Headers("Accept: application/json")
     @GET("/user/subscriptions")
-    Call<List<UserReposWatching>> getWatchingRepos(@Query("access_token") String access_token);
+    Observable<List<UserReposWatching>> getWatchingRepos(@Query("access_token") String access_token);
 
     @Headers("Accept: application/json")
     @GET("/user/starred")
-    Call<List<UserStarredRepo>> getStarredRepos(@Query("access_token") String access_token);
+    Observable<List<UserStarredRepo>> getStarredRepos(@Query("access_token") String access_token);
 }

@@ -78,7 +78,6 @@ public class UserStarredReposFragment extends Fragment implements Observer<List<
         if (userStarredRepoArrayList.size() == 0 && mRoot.findViewById(R.id.errorView) != null) {
             mRoot.findViewById(R.id.errorView).setVisibility(View.VISIBLE);
         } else {
-            //UpdateDataTables.getInstance(getActivity()).insertWholeStarringRepoTable(userStarredRepoArrayList);
             if (mRoot.findViewById(R.id.errorView) != null && mRoot.findViewById(R.id.errorView).getVisibility() == View.VISIBLE) {
                 mRoot.findViewById(R.id.errorView).setVisibility(View.GONE);
             }

@@ -96,7 +96,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     void addWholeListStarringRepo(List<UserStarredRepo> userStarredRepoList) {
-        deleteALlUserReposWatching();
+        deleteALlUserReposStarring();
         SQLiteDatabase db = this.getWritableDatabase();
         for (UserStarredRepo userStarredRepo :
                 userStarredRepoList) {
@@ -136,7 +136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void deleteALlUserReposStarring() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("delete from " + TABLE_USER_STARRED_REPO, null);
+        db.delete(TABLE_USER_STARRED_REPO, null, null);
         db.close();
     }
 
@@ -193,7 +193,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     void deleteALlUserReposWatching() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.rawQuery("delete from " + TABLE_USER_WATCHING_REPO, null);
+        db.delete(TABLE_USER_WATCHING_REPO, null, null);
         db.close();
     }
 

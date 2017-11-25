@@ -3,6 +3,8 @@ GitHub API consumption using
 - Retrofit
 - MVVM
 - LiveData
+- RxJava/RxAndroid
+- RxBindings
 - MVP
 - MVC
 - Offline usage
