@@ -56,13 +56,15 @@ public class StarredReposAdapter extends RecyclerView.Adapter<StarredReposAdapte
         return new StarredReposAdapter.MyViewHolder(itemView);
     }
 
+    int lastPosition = -1;
 
     @Override
-    public void onBindViewHolder(StarredReposAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(final StarredReposAdapter.MyViewHolder holder, int position) {
 
-        UserStarredRepo userReposWatching = userStarredRepoArrayList.get(position);
+        final UserStarredRepo userReposWatching = userStarredRepoArrayList.get(position);
         holder.name.setText(userReposWatching.getName());
         holder.htmlurl.setText(userReposWatching.getHtmlUrl());
+
         if (userReposWatching.getOwner() != null && userReposWatching.getOwner().getAvatarUrl() != null && Utils.isNetworkAvailable()) {
             GlideApp.with(context)
                     .load(userReposWatching.getOwner().getAvatarUrl())
@@ -70,6 +72,18 @@ public class StarredReposAdapter extends RecyclerView.Adapter<StarredReposAdapte
                     .fitCenter()
                     .into(holder.repo_image);
         }
+
+
+        if (position > lastPosition)
+        {
+
+            Animation animation = AnimationUtils.loadAnimation(context,
+                    R.anim.up_from_bottom);
+            animation.setDuration(500);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
+        }
+
     }
 
     @Override

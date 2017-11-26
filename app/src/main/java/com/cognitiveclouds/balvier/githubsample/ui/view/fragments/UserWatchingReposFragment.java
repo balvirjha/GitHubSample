@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
 import com.cognitiveclouds.balvier.githubsample.R;
-import com.cognitiveclouds.balvier.githubsample.databaseoperations.UpdateDataTables;
 import com.cognitiveclouds.balvier.githubsample.modals.GitHubConstants;
 import com.cognitiveclouds.balvier.githubsample.modals.watcherreposmodals.UserReposWatching;
 import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.WatchingReposAdapter;
@@ -24,7 +23,12 @@ import com.cognitiveclouds.balvier.githubsample.viewmodals.UserWatcherReposViewM
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import okhttp3.Cache;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -70,18 +74,41 @@ public class UserWatchingReposFragment extends Fragment implements Observer<List
             userReposWatchingArrayList.clear();
         }
         Log.e(GitHubConstants.TAG, "fetching user repos success" + userReposWatchings.size());
-        userReposWatchingArrayList.addAll(userReposWatchings);
-        mAdapter.notifyDataSetChanged();
-        if (userReposWatchingArrayList.size() == 0) {
-            mRoot.findViewById(R.id.errorView).setVisibility(View.VISIBLE);
 
-        } else {
-            if (mRoot.findViewById(R.id.errorView) != null && mRoot.findViewById(R.id.errorView).getVisibility() == View.VISIBLE) {
-                mRoot.findViewById(R.id.errorView).setVisibility(View.GONE);
+        Observable.fromIterable(userReposWatchings)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new io.reactivex.Observer<UserReposWatching>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            }
+                    }
 
-        }
+                    @Override
+                    public void onNext(UserReposWatching userReposWatching) {
+                        userReposWatchingArrayList.add(userReposWatching);
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        if (userReposWatchingArrayList.size() == 0) {
+                            mRoot.findViewById(R.id.errorView).setVisibility(View.VISIBLE);
+
+                        } else {
+                            if (mRoot.findViewById(R.id.errorView) != null && mRoot.findViewById(R.id.errorView).getVisibility() == View.VISIBLE) {
+                                mRoot.findViewById(R.id.errorView).setVisibility(View.GONE);
+
+                            }
+
+                        }
+                    }
+                });
+
     }
 
 }

@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
             android:autoSizeTextType="uniform"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
             android:textColor="@color/colorTeral" />
 
         <TextView
@@ -58,8 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:autoSizeTextType="uniform"
-            android:lines="1"
             android:ellipsize="end"
+            android:lines="1"
             android:textColor="@color/colorTeral" />
     </LinearLayout>
 </LinearLayout>

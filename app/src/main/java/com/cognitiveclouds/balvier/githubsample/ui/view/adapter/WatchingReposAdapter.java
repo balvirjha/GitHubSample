@@ -54,12 +54,15 @@ public class WatchingReposAdapter extends RecyclerView.Adapter<WatchingReposAdap
         return new MyViewHolder(itemView);
     }
 
+    int lastPosition = -1;
+
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        UserReposWatching userReposWatching = userReposWatchings.get(position);
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final UserReposWatching userReposWatching = userReposWatchings.get(position);
         holder.name.setText(userReposWatching.getName());
         holder.htmlurl.setText(userReposWatching.getHtmlUrl());
         holder.description.setText(userReposWatching.getDescription());
+
         if (userReposWatching.getOwner() != null && userReposWatching.getOwner().getAvatarUrl() != null && Utils.isNetworkAvailable()) {
             GlideApp.with(context)
                     .load(userReposWatching.getOwner().getAvatarUrl())
@@ -67,6 +70,16 @@ public class WatchingReposAdapter extends RecyclerView.Adapter<WatchingReposAdap
                     .fitCenter()
                     .into(holder.repo_image);
         }
+
+        if (position > lastPosition) {
+
+            Animation animation = AnimationUtils.loadAnimation(context,
+                    R.anim.up_from_bottom);
+            animation.setDuration(500);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
+        }
+
     }
 
     @Override

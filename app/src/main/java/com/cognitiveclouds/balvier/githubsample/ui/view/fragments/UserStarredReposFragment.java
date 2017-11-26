@@ -15,11 +15,9 @@ import android.view.ViewGroup;
 
 import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
 import com.cognitiveclouds.balvier.githubsample.R;
-import com.cognitiveclouds.balvier.githubsample.databaseoperations.UpdateDataTables;
 import com.cognitiveclouds.balvier.githubsample.modals.GitHubConstants;
 import com.cognitiveclouds.balvier.githubsample.modals.starredreposmodals.UserStarredRepo;
 import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.StarredReposAdapter;
-import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.WatchingReposAdapter;
 import com.cognitiveclouds.balvier.githubsample.viewmodals.UserStarredReposViewModel;
 
 import java.io.File;
