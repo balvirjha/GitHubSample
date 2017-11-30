@@ -3,4 +3,5 @@
     <string name="loginExplanation">Login once and we\'ll handle it all.</string>
     <string name="loginButtonText">GitHub Login</string>
     <string name="githubInc">GitHub inc.</string>
+
 </resources>

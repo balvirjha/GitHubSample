@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.cognitiveclouds.balvier.githubsample.R;
 import com.cognitiveclouds.balvier.githubsample.Utils;
 import com.cognitiveclouds.balvier.githubsample.modals.GlideApp;
@@ -47,14 +48,12 @@ public class WatchingReposAdapter extends RecyclerView.Adapter<WatchingReposAdap
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.watchingrepos_list_row, parent, false);
+                .inflate(R.layout.watchingrepos_list_row_new, parent, false);
         if (context == null) {
             context = parent.getContext();
         }
         return new MyViewHolder(itemView);
     }
-
-    int lastPosition = -1;
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
@@ -67,19 +66,10 @@ public class WatchingReposAdapter extends RecyclerView.Adapter<WatchingReposAdap
             GlideApp.with(context)
                     .load(userReposWatching.getOwner().getAvatarUrl())
                     .error(R.drawable.gitlogo)
+                    .transition(DrawableTransitionOptions.withCrossFade(1500))
                     .fitCenter()
                     .into(holder.repo_image);
         }
-
-        if (position > lastPosition) {
-
-            Animation animation = AnimationUtils.loadAnimation(context,
-                    R.anim.up_from_bottom);
-            animation.setDuration(500);
-            holder.itemView.startAnimation(animation);
-            lastPosition = position;
-        }
-
     }
 
     @Override

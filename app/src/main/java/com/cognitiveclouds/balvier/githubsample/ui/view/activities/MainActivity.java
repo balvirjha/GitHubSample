@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -92,19 +94,31 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Git
 
     private void openUserWatchingReposFragment() {
         if (MainActivity.this != null && !MainActivity.this.isFinishing()) {
-            userWatchingReposFragment = new UserWatchingReposFragment();
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.framelayout, userWatchingReposFragment, UserWatchingReposFragment.class.getSimpleName())
-                    .commit();
+            if (getSupportFragmentManager().findFragmentByTag(UserWatchingReposFragment.class.getSimpleName()) != null) {
+                getSupportFragmentManager().popBackStack(UserWatchingReposFragment.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else {
+                userWatchingReposFragment = new UserWatchingReposFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.default_dialog_in, R.anim.default_dialog_out, R.anim.default_dialog_in, R.anim.default_dialog_out);
+                fragmentTransaction.
+                        replace(R.id.framelayout, userWatchingReposFragment, UserWatchingReposFragment.class.getSimpleName())
+                        .commit();
+            }
         }
     }
 
     private void openUserStarredReposFragment() {
         if (MainActivity.this != null && !MainActivity.this.isFinishing()) {
-            userStarredReposFragment = new UserStarredReposFragment();
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.framelayout, userStarredReposFragment, UserStarredReposFragment.class.getSimpleName())
-                    .commit();
+            if (getSupportFragmentManager().findFragmentByTag(UserStarredReposFragment.class.getSimpleName()) != null) {
+                getSupportFragmentManager().popBackStack(UserStarredReposFragment.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else {
+                userStarredReposFragment = new UserStarredReposFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.default_dialog_in, R.anim.default_dialog_out, R.anim.default_dialog_in, R.anim.default_dialog_out);
+                fragmentTransaction.
+                        replace(R.id.framelayout, userStarredReposFragment, UserStarredReposFragment.class.getSimpleName())
+                        .commit();
+            }
         }
     }
 
