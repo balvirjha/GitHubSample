@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Created by Balvier on 9/29/2017.
  */
 
-public class UserReposWatching implements Parcelable, Serializable {
+public class UserReposWatching implements Parcelable {
 
     @SerializedName("id")
     @Expose

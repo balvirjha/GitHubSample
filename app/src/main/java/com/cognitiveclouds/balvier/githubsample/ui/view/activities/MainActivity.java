@@ -122,6 +122,10 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Git
         }
     }
 
+    void openDetailPage() {
+        startActivity(new Intent(MainActivity.this, RepositoryDetailPage.class));
+    }
+
     @Override
     protected void onPause() {
         super.onPause();

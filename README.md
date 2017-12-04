@@ -5,6 +5,9 @@ GitHub API consumption using
 - LiveData
 - RxJava/RxAndroid
 - RxBindings
+- Core Java
+- Kotlin & Kotlin Extensions
+- ConstraintLayout
 - MVP
 - MVC
 - Offline usage

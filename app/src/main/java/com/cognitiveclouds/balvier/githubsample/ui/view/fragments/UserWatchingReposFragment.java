@@ -2,9 +2,12 @@ package com.cognitiveclouds.balvier.githubsample.ui.view.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,18 +20,18 @@ import com.cognitiveclouds.balvier.githubsample.ApplicationClass;
 import com.cognitiveclouds.balvier.githubsample.R;
 import com.cognitiveclouds.balvier.githubsample.modals.GitHubConstants;
 import com.cognitiveclouds.balvier.githubsample.modals.watcherreposmodals.UserReposWatching;
+import com.cognitiveclouds.balvier.githubsample.ui.view.activities.RepositoryDetailPage;
+import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.RecyclerItemClickListener;
 import com.cognitiveclouds.balvier.githubsample.ui.view.adapter.WatchingReposAdapter;
 import com.cognitiveclouds.balvier.githubsample.viewmodals.UserWatcherReposViewModel;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import okhttp3.Cache;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -57,6 +60,33 @@ public class UserWatchingReposFragment extends Fragment implements Observer<List
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getActivity(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(getActivity(), RepositoryDetailPage.class);
+                        intent.putExtra("dataItem", userReposWatchingArrayList.get(position));
+
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation(getActivity(),
+                                        view.findViewById(R.id.repo_image),
+                                        ViewCompat.getTransitionName(view.findViewById(R.id.repo_image)));
+                        startActivity(intent, options.toBundle());
+
+
+                       /* Intent intent = new Intent(getActivity(), RepositoryDetailPage.class);
+                        intent.putExtra("dataItem", userReposWatchingArrayList.get(position));
+                        startActivity(intent);*/
+
+                        // do whatever
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
         viewModel.getUserReposWatchingLiveData().observe(this, this);
 
     }
@@ -109,6 +139,12 @@ public class UserWatchingReposFragment extends Fragment implements Observer<List
                     }
                 });
 
+    }
+
+
+    public interface RecyclerViewClickListener {
+
+        void onClick(View view, int position);
     }
 
 }
